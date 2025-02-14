@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" xmlns:th="http//www.thymleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Board List Page</title>
+</head>
+
+<style>
+    .layout {
+    width: 500px;
+    margin: 0 auto;
+    margin-top : 40px;
+    }
+
+</style>
+<body>
+
+    <div class="layout">
+        <table>
+            <thread>
+                <tr>
+                    <th>글번호</th>
+                    <th>제목</th>
+                </tr>
+            </thread>
+            <tbody>
+            <tr th:each="board : ${list}">
+                <td th:text="${board.id}">1</td>
+                <td th:text="${board.title}">제목입니다.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
