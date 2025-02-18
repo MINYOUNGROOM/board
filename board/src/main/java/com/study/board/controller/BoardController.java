@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @AllArgsConstructor
@@ -22,9 +23,9 @@ public class BoardController {
     }
 
     // 게시물 상세 조회
-    @GetMapping("/board/detail/{id}") // localhost:8080/board/detail?id=2
-    public String boardDetailList(Model model, Integer id) throws Exception{
-        model.addAttribute("detail", boardservice.getDetail(id));
+    @GetMapping("/board/view") // localhost:8080/board/detail?id=2
+    public String boardDetailList(Model model, @RequestParam("id") Integer id) {
+        model.addAttribute("board", boardservice.getDetail(id));
         return "boardview";
     }
 

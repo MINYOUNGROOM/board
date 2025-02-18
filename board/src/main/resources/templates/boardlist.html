@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http//www.thymleaf.org">
+<html lang="en" xmlns:th="http://www.thymleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>Board List Page</title>
@@ -15,22 +15,24 @@
 </style>
 <body>
 
-    <div class="layout">
-        <table>
-            <thread>
-                <tr>
-                    <th>글번호</th>
-                    <th>제목</th>
-                </tr>
-            </thread>
-            <tbody>
-            <tr th:each="board : ${list}">
-                <td th:text="${board.id}">1</td>
-                <td th:text="${board.title}">제목입니다.</td>
+<div class="layout">
+    <table>
+        <thead>
+            <tr>
+                <th>글번호</th>
+                <th>제목</th>
             </tr>
-            </tbody>
-        </table>
-    </div>
+        </thead>
+        <tbody>
+        <tr th:each="board : ${list}">
+            <td th:text="${board.id}">1</td>
+            <td>
+                <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}">제목입니다</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>

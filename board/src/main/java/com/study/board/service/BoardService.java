@@ -20,19 +20,13 @@ public class BoardService {
     }
 
     // 게시물 상세 조회
-    public Board getDetail(Integer id) throws Exception{
-        Optional<Board> board = boardRepository.findById(id);
-        if(board != null && board.isPresent()){
-            return board.get();
-        }
-        return null;
+    public Board getDetail(Integer id){
+        return boardRepository.findById(id).get();
     }
 
     // 게시물 작성
     public void write(Board board) {
         boardRepository.save(board);
     }
-
-
 
 }
