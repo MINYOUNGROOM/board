@@ -2,12 +2,11 @@ package com.study.board.controller;
 
 import com.study.board.entity.Board;
 import com.study.board.service.BoardService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @AllArgsConstructor
@@ -43,5 +42,17 @@ public class BoardController {
         return "";
     }
 
+    // 게시물 삭제 버튼
+    @GetMapping("/board/delete")
+    public String boardDelete(@RequestParam("id") Integer id) {
+        boardservice.delete(id);
+        return "redirect:/board/list";
+    }
 
+    // 게시물 수정
+    @PutMapping("board/modify/{id}")
+    public String boardModify(@PathVariable Integer id, Model model){
+        model.addAttribute("board", boardservice.getDetail(id)); // 상세 페이지로 넘겨줘야함
+        return "boardmodify";
+    }
 }
