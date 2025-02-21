@@ -24,7 +24,7 @@ public class BoardController {
     // 게시물 상세 조회
     @GetMapping("/board/view") // localhost:8080/board/detail?id=2
     public String boardDetailList(Model model, @RequestParam("id") Integer id) {
-        model.addAttribute("board", boardservice.getDetail(id));
+        model.addAttribute("board", boardservice.boardView(id));
         return "boardview";
     }
 
@@ -49,10 +49,23 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
-    // 게시물 수정
-    @PutMapping("board/modify/{id}")
-    public String boardModify(@PathVariable Integer id, Model model){
-        model.addAttribute("board", boardservice.getDetail(id)); // 상세 페이지로 넘겨줘야함
+    // 수정버튼 -> 게시물 상세로 이동
+    @GetMapping("/board/modify/{id}")
+    public String boardModify(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("board", boardservice.boardView(id));
         return "boardmodify";
+    }
+
+
+    // 게시물 수정
+    @PostMapping("/board/update/{id}")
+    public String boardUpdate(@PathVariable("id") Integer id, Board board){
+        Board boardTemp = boardservice.boardView(id);
+        boardTemp.setTitle(board.getTitle());
+        boardTemp.setContent(board.getContent());
+
+        boardservice.write(boardTemp);
+
+        return "redirect:/board/list";
     }
 }

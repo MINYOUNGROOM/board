@@ -21,7 +21,7 @@ public class BoardService {
     }
 
     // 게시물 상세 조회
-    public Board getDetail(Integer id){
+    public Board boardView(Integer id){
         return boardRepository.findById(id).get();
     }
 
