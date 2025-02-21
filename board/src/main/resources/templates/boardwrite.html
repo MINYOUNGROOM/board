@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymleaf.org">>>
 <head>
     <meta charset="UTF-8"/>
     <title>My Board Write Page</title>
@@ -27,9 +27,10 @@
 </style>
 <body>
 <div class="layout">
-    <form action="/board/writeprocess" method="post">
+    <form action="/board/writepro" method="post" enctype="multipart/form-data">
         <input name="title" type="text">
         <textarea name="content"></textarea>
+        <input type="file" name="file">
         <button type="submit">작성</button> <!-- submit type 은 전송 타입 -->
     </form>
 </div>

@@ -2,11 +2,14 @@ package com.study.board.controller;
 
 import com.study.board.entity.Board;
 import com.study.board.service.BoardService;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @AllArgsConstructor
@@ -35,11 +38,11 @@ public class BoardController {
     }
 
     // 게시물 작성 버튼
-    @PostMapping("/board/writeprocess")
-    public String boardWriteProcess(Board board) {
-        boardservice.write(board);
+    @PostMapping("/board/writepro")
+    public String boardWriteProcess(Board board, @RequestParam(name="file", required = false) MultipartFile file) throws Exception {
+        boardservice.write(board, file);
         System.out.println("제목" + board.getTitle());
-        return "";
+        return "redirect:/board/list";
     }
 
     // 게시물 삭제 버튼
@@ -59,12 +62,13 @@ public class BoardController {
 
     // 게시물 수정
     @PostMapping("/board/update/{id}")
-    public String boardUpdate(@PathVariable("id") Integer id, Board board){
+    public String boardUpdate(@PathVariable("id") Integer id, Board board, @RequestParam(name="file", required = false) MultipartFile file) throws Exception{
+
         Board boardTemp = boardservice.boardView(id);
         boardTemp.setTitle(board.getTitle());
         boardTemp.setContent(board.getContent());
 
-        boardservice.write(boardTemp);
+        boardservice.write(boardTemp, file);
 
         return "redirect:/board/list";
     }
